@@ -41,9 +41,10 @@ public class KyselyController {
     	return kysRepository.findById(kyselyId);
     }   
 	
-	@RequestMapping(value="/addkysely", method = RequestMethod.POST)
-    public @ResponseBody Kysely saveKyselyRest(@RequestBody Kysely kysely) {	
-    	return kysRepository.save(kysely);
-    }
+	
+	@RequestMapping("/addkysely")
+	  Kysely newKysely(@RequestBody Kysely newKysely) {
+	    return kysRepository.save(newKysely);
+	  }
 
 }
