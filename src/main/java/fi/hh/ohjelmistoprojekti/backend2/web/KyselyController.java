@@ -43,7 +43,7 @@ public class KyselyController {
     	return kysRepository.findById(kyselyId);
     }   
 	
-	@PostMapping(consumes = "application/json", produces = "application/json")
+	@PostMapping(path ="/kysely", consumes = "application/json", produces = "application/json")
     public Kysely saveKyselyRest(@RequestBody Kysely kysely) {	
     	return kysRepository.save(kysely);
     }
