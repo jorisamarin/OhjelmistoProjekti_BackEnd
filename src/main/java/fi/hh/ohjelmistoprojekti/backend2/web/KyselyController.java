@@ -42,7 +42,7 @@ public class KyselyController {
     }   
 	
 	
-	@RequestMapping("/addkysely")
+	@RequestMapping(value="/addkysely", method = RequestMethod.POST)
 	  Kysely newKysely(@RequestBody Kysely newKysely) {
 	    return kysRepository.save(newKysely);
 	  }
