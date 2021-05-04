@@ -7,6 +7,8 @@ import org.springframework.context.annotation.Bean;
 
 import fi.hh.ohjelmistoprojekti.backend2.domain.Kysely;
 import fi.hh.ohjelmistoprojekti.backend2.domain.KyselyRepository;
+import fi.hh.ohjelmistoprojekti.backend2.domain.Kysymys;
+import fi.hh.ohjelmistoprojekti.backend2.domain.KysymysRepository;
 
 @SpringBootApplication
 public class Application {
@@ -16,13 +18,17 @@ public class Application {
 	}
 	
 	@Bean
-	public CommandLineRunner test(KyselyRepository kysrepository) {
+	public CommandLineRunner test(KyselyRepository kysrepository, KysymysRepository kysymysRepo) {
 		return (args) -> {
 			
 		
 
 			kysrepository.save(new Kysely("Moi"));
 			kysrepository.save(new Kysely("Hei"));
+			
+			kysymysRepo.save(new Kysymys("avoinKysymys", "Paljon sun outfit maksaa?"));
+			
+			
 			
 			
 		};
