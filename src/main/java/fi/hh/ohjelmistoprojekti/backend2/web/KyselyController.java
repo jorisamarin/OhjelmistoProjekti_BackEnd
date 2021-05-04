@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.hh.ohjelmistoprojekti.backend2.domain.Kysely;
 import fi.hh.ohjelmistoprojekti.backend2.domain.KyselyRepository;
-import fi.hh.swd20.PalvelinHarkkatyo.Domain.Ilmoitus;
-
 
 @CrossOrigin
 @Controller
