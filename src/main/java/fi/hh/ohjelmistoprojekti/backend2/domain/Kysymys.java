@@ -35,6 +35,15 @@ public class Kysymys {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "kysymys")
 	private List<Vastaus> vastaukset;
 	
+	
+	
+	public Kysymys(Long kysymys_id, String kysymystyyppi, String kysymysteksti) {
+		super();
+		this.kysymys_id = kysymys_id;
+		this.kysymystyyppi = kysymystyyppi;
+		this.kysymysteksti = kysymysteksti;
+	}
+
 	public Kysymys() {
 	}
 	
