@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import fi.hh.ohjelmistoprojekti.backend2.domain.Kysely;
 import fi.hh.ohjelmistoprojekti.backend2.domain.KyselyRepository;
+import fi.hh.ohjelmistoprojekti.backend2.domain.Kysymys;
+import fi.hh.ohjelmistoprojekti.backend2.domain.KysymysRepository;
+import fi.hh.ohjelmistoprojekti.backend2.domain.Vastaus;
+import fi.hh.ohjelmistoprojekti.backend2.domain.VastausRepository;
 
 @CrossOrigin
 @Controller
@@ -29,6 +33,12 @@ public class KyselyController {
 	
 	@Autowired
 	KyselyRepository kysRepository;
+	
+	@Autowired
+	KysymysRepository kysymysRepo;
+	
+	@Autowired
+	VastausRepository vastausRepo;
 	
 	
 	@RequestMapping(value="/kysely", method = RequestMethod.GET)
@@ -51,5 +61,17 @@ public class KyselyController {
 		}
   
     }
+	
+	@RequestMapping(value="/kysymys/{id}", method = RequestMethod.GET)
+    public @ResponseBody Optional<Kysymys> findKysymysRest(@PathVariable("id") Long kysymysId) {	
+    	return kysymysRepo.findById(kysymysId);
+    } 
+	
+	@PostMapping(path = "/kysymys", consumes = "application/json", produces = "application/json")
+	public Vastaus saveVastausRest(@RequestBody Vastaus vastaus) {
+		return vastausRepo.save(vastaus);
+	}
+	
+	
 
 }
