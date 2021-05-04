@@ -43,7 +43,13 @@ public class KyselyController {
 	
 	@PostMapping(path ="/kysely", consumes = "application/json", produces = "application/json")
     public Kysely saveKyselyRest(@RequestBody Kysely kysely) {	
-    	return kysRepository.save(kysely);
+		try {
+			return kysRepository.save(kysely);
+		} catch (Exception e) {
+			System.out.println("virhe");
+			return null;
+		}
+  
     }
 
 }
