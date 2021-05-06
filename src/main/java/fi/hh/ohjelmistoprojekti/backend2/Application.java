@@ -29,6 +29,8 @@ public class Application {
 			kysymysRepo.save(new Kysymys("avoinKysymys", "Paljon sun outfit maksaa?"));
 			kysymysRepo.save(new Kysymys("avoinKysymys", "Testi"));
 			
+			kysymysRepo.save(new Kysymys("RadioKysymys", "Testi"));
+			
 			
 			
 		};
