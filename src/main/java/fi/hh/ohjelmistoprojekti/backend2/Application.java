@@ -38,18 +38,18 @@ public class Application {
 			kysrepository.save(kyse1);
 			kysrepository.save(kyse2);
 			
-			Kysymys kyse1Kysymys1 = new Kysymys("avoinKysymys", "Voitko hyvin?");
+			Kysymys kyse1Kysymys1 = new Kysymys(false, "Voitko hyvin?");
 			kyse1Kysymys1.setKysely(kyse1);
-			Kysymys kyse1Kysymys2 = new Kysymys("avoinKysymys", "Jos voit hyvin, niin miksi ?");
+			Kysymys kyse1Kysymys2 = new Kysymys(true, "Jos voit hyvin, niin miksi ?");
 			kyse1Kysymys2.setKysely(kyse1);
-			Kysymys kyse1Kysymys3 = new Kysymys("avoinKysymys", "Avoin sana!");
+			Kysymys kyse1Kysymys3 = new Kysymys(true, "Avoin sana!");
 			kyse1Kysymys3.setKysely(kyse1);
 			
-			Kysymys kyse2Kysymys1 = new Kysymys("avoinKysymys", "Voitko pahoin?");
+			Kysymys kyse2Kysymys1 = new Kysymys(false, "Voitko pahoin?");
 			kyse2Kysymys1.setKysely(kyse2);
-			Kysymys kyse2Kysymys2 = new Kysymys("avoinKysymys", "Jos voit pahoin, niin miksi ?");
+			Kysymys kyse2Kysymys2 = new Kysymys(true, "Jos voit pahoin, niin miksi ?");
 			kyse2Kysymys2.setKysely(kyse2);
-			Kysymys kyse2Kysymys3 = new Kysymys("avoinKysymys", "Avoin sana!");
+			Kysymys kyse2Kysymys3 = new Kysymys(true, "Avoin sana!");
 			kyse2Kysymys3.setKysely(kyse2);
 			
 			kysymysRepo.save(kyse1Kysymys1);
@@ -108,16 +108,6 @@ public class Application {
 			vastausRepo.save(kyse2kysymys3vastaus2);
 			vastausRepo.save(kyse2kysymys3vastaus3);
 			
-			
-			
-			
-			
-			
-			
-
-			
-			
-			kysymysRepo.save(new Kysymys("RadioKysymys", "Testi"));
 			
 			
 			

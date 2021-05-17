@@ -24,7 +24,7 @@ public class Kysymys {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long kysymys_id;
-	private String kysymystyyppi;
+	private boolean avoinKysymys;
 	private String kysymysteksti;
 	
 	@ManyToOne
@@ -37,19 +37,19 @@ public class Kysymys {
 	
 	
 	
-	public Kysymys(Long kysymys_id, String kysymystyyppi, String kysymysteksti) {
+	public Kysymys(Long kysymys_id, boolean avoinKysymys, String kysymysteksti) {
 		super();
 		this.kysymys_id = kysymys_id;
-		this.kysymystyyppi = kysymystyyppi;
+		this.avoinKysymys = avoinKysymys;
 		this.kysymysteksti = kysymysteksti;
 	}
 
 	public Kysymys() {
 	}
 	
-	public Kysymys(String kysymystyyppi, String kysymysteksti) {
+	public Kysymys(boolean avoinKysymys, String kysymysteksti) {
 		super();
-		this.kysymystyyppi = kysymystyyppi;
+		this.avoinKysymys = avoinKysymys;
 		this.kysymysteksti = kysymysteksti;
 	}
 	
@@ -70,12 +70,12 @@ public class Kysymys {
 		this.kysymys_id = kysymys_id;
 	}
 	@Column (name = "kysymystyyppi", nullable = false)
-	public String getKysymystyyppi() {
-		return kysymystyyppi;
+	public boolean getKysymystyyppi() {
+		return avoinKysymys;
 	}
 
-	public void setKysymystyyppi(String kysymystyyppi) {
-		this.kysymystyyppi = kysymystyyppi;
+	public void setKysymystyyppi(boolean avoinKysymys) {
+		this.avoinKysymys = avoinKysymys;
 	}
 
 	public String getKysymysteksti() {
@@ -102,10 +102,5 @@ public class Kysymys {
 		this.vastaukset = vastaukset;
 	}
 
-	@Override
-	public String toString() {
-		return "Kysymys [kysymys_id=" + kysymys_id + ", kysymystyyppi=" + kysymystyyppi + ", kysymysteksti=" + kysymysteksti
-				+ ", kysely_id=" + kysely + ", vastaukset=" + vastaukset + "]";
-	}
 
 }
