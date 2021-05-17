@@ -13,7 +13,7 @@
 		
 		
 		<div>
- 			<form th:object="${kysely}" th:action="@{save}" action="#" method="post">
+ 			<form th:object="${kysely}" th:action="@{saveKysely}" action="#" method="post">
  			 <label for="nimi">Nimi</label>
  			 <input type="text" id="nimi" th:field="*{nimi}" />
  			 <input type="submit" value="Save"></input>

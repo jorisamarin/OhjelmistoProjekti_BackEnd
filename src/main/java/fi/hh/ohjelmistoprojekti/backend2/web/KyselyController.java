@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 import fi.hh.ohjelmistoprojekti.backend2.domain.Kysely;
 import fi.hh.ohjelmistoprojekti.backend2.domain.KyselyRepository;
 import fi.hh.ohjelmistoprojekti.backend2.domain.Kysymys;
@@ -52,6 +53,15 @@ public class KyselyController {
 	@Autowired
 	UserRepository userRepo;
 	
+	//Samulin tekemät controllerit
+	
+	//TODO
+	//POST metodi vastauskselle tekemättä
+	//THYMELEAF METODIT EI TOIMI TÄYSIN
+	//addKysymys ja savekysymys tarvis tiedot siitä kyselystä mihin kysymys tulee ja lisätä se kysymykseen (jotenkin endpointtien kautta ehkä?)
+	//ADMINILLE VAIN OIKEUDET 
+	
+	
 	
 	@RequestMapping(value="/kysely", method = RequestMethod.GET)
     public @ResponseBody List<Kysely> KyselyListRest() {	
@@ -80,7 +90,8 @@ public class KyselyController {
   
     }
 	
-	//Samulin tekemät controllerit
+	//ADMIN THYMELEAF JUTTUJA
+	
 	@RequestMapping("/userKyselyt")
 	public String userKyselyt(Model model) {
 		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -96,6 +107,16 @@ public class KyselyController {
 		return "addKysely";
 	}
 	
+	@RequestMapping(value = "/saveKysely", method = RequestMethod.POST)
+	public String saveKysely(Kysely kysely){
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = user.getUsername();
+		User usernow = userRepo.findByUsername(username);
+		kysely.setUser(usernow);
+		kysRepository.save(kysely);
+		return "redirect:userKyselyt";
+	}
+	
 	@RequestMapping("/kyselyKysymykset/{nimi}")
 	public String kyselyKysymykset(@PathVariable("nimi") String nimi, Model model){
 		Kysely kysely = kysRepository.findByNimi(nimi);
@@ -105,9 +126,22 @@ public class KyselyController {
 	
 	@RequestMapping(value = "/addKysymys")
 	public String addKysymys(Model model){
+		
 		model.addAttribute("kysymys", new Kysymys());
+		
 		return "addKysymys";
 	}
+	
+	@RequestMapping(value = "/saveKysymys", method = RequestMethod.POST)
+	public String saveKysymys2(Kysymys kysymys){
+		kysymysRepo.save(kysymys);
+		return "redirect:kyselyKysymykset";
+	}
+	
+	//Muut controllerit
+	
+	//LOPUT SIIS EI MUN KÄYTTÄMIÄ T SAMULI ELI IHA MYSTEERIKAMAA
+	
 	
 	
 	
