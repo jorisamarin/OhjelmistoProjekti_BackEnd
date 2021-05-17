@@ -51,6 +51,12 @@ public class KyselyController {
         return (List<Kysely>) kysRepository.findAll();
     }    
 	
+	@RequestMapping(value="/kysymykset/{nimi}", method = RequestMethod.GET)
+	public @ResponseBody List<Kysymys> KysymysListRest(@PathVariable("nimi") String nimi) {
+		Kysely kysely = kysRepository.findByNimi(nimi);
+		return (List<Kysymys>) kysymysRepo.findByKysely(kysely);
+	}
+	
 	@RequestMapping(value="/kysely/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Kysely> findIlmoitusRest(@PathVariable("id") Long kyselyId) {	
     	return kysRepository.findById(kyselyId);

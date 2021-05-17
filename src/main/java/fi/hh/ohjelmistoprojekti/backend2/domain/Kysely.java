@@ -27,7 +27,7 @@ public class Kysely {
 	private User user;
 	
 	@JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "kysymys_id")
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "kysely")
     private List<Kysymys> kysymykset;
 	
 	
