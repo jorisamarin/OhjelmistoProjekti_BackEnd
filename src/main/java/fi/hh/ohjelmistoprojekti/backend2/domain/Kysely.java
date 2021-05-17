@@ -7,9 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -18,49 +20,68 @@ public class Kysely {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long kyselyId;
-	private String kysymys;
+	private String nimi;
+	
+	@ManyToOne
+	@JoinColumn(name = "id")
+	private User user;
+	
+	@JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "kysymys_id")
+    private List<Kysymys> kysymykset;
+	
 	
 
-	public Kysely(Long kyselyId, String kysymys) {
-		super();
-		this.kyselyId = kyselyId;
-		this.kysymys = kysymys;
-		
-	}
-	
-	public Kysely(String kysymys) {
-		super();
-		this.kysymys = kysymys;
-		
-		
-	}
-	
 	public Kysely() {
-		
+		super();
 	}
 	
 	
-	public void setKyselyId(Long kyselyId) {
-		this.kyselyId = kyselyId;
+
+	public Kysely(String nimi, User user) {
+		super();
+		this.nimi = nimi;
+		this.user = user;
 	}
 
-	public void setKysymys(String kysymys) {
-		this.kysymys = kysymys;
-	}
+
 
 	public Long getKyselyId() {
 		return kyselyId;
 	}
 
-	public String getKysymys() {
-		return kysymys;
+	public void setKyselyId(Long kyselyId) {
+		this.kyselyId = kyselyId;
 	}
 
-	@Override
-	public String toString() {
-		return "Kysely [kyselyId=" + kyselyId + ", kysymys=" + kysymys + "]";
+	public String getNimi() {
+		return nimi;
 	}
 
+	public void setNimi(String nimi) {
+		this.nimi = nimi;
+	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Kysymys> getKysymykset() {
+		return kysymykset;
+	}
+
+	public void setKysymykset(List<Kysymys> kysymykset) {
+		this.kysymykset = kysymykset;
+	}
 	
+	
+	
+	
+	
+
+
 }
