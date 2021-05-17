@@ -117,6 +117,8 @@ public class Application {
 
 			
 			
+			kysymysRepo.save(new Kysymys("RadioKysymys", "Testi"));
+			
 			
 			
 		};

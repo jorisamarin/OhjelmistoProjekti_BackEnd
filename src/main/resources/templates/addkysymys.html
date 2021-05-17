@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Ohjelmistoprojekti Backend</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h1>Lisää uusi kysymys</h1>
+	<div>
+   			<form th:object="${kysymys}" th:action="@{addkysymys}" action="#" method="post">
+   			
+			<label for="kyslist">Kysymystyyppi</label>
+			<select id="kyslist" th:field="*{kysymystyyppi}" class="form-control">
+       		<option th:each="kys: ${kysymystyyppi}" th:value="${kys.kysymystyyppi}" th:text="${kys.kysymystyyppi}"></option>
+    		</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
+		  	<label for="kysymysteksti">Kysymys</label>
+			<input type="text" id="kysymysteksti" th:field="*{kysymysteksti}" />
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Save"></input>
+			<div style="clear: both; display: block; height: 10px;"></div>
+		</form>
+		<a href="/index">Takaisin</a>
+		
+</div>
+</body>
+</html>

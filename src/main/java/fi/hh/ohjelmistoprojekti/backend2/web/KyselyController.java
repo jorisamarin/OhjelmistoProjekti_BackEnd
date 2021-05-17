@@ -5,7 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,9 @@ import fi.hh.ohjelmistoprojekti.backend2.domain.Kysymys;
 import fi.hh.ohjelmistoprojekti.backend2.domain.KysymysRepository;
 import fi.hh.ohjelmistoprojekti.backend2.domain.Vastaus;
 import fi.hh.ohjelmistoprojekti.backend2.domain.VastausRepository;
+
+
+
 
 @CrossOrigin
 @Controller
@@ -72,6 +77,38 @@ public class KyselyController {
 		return vastausRepo.save(vastaus);
 	}
 	
+	@RequestMapping(value = "/addkysymys", method = RequestMethod.POST)
+	public String saveKysymys(@ModelAttribute Kysymys kysymys) {
+		kysymysRepo.save(kysymys);
+		return "redirect:/index";
+	}
 	
+	@RequestMapping(value = "/addkysymys", method = RequestMethod.GET)
+	public String getUusiKysymys(Model model) {
+		model.addAttribute("kysymys", new Kysymys());
+		model.addAttribute("kysymystyyppi", kysymysRepo.findAll());
+		return "addkysymys";
+	}
+	
+	@RequestMapping(value = "/deletekysymys/{id}", method = RequestMethod.GET)
+	public String deleteKysymys(@PathVariable("kysymys_id") Long kysymysId) {
+		kysymysRepo.deleteById(kysymysId);
+		return "redirect:../addkysymys";
+	}
+	
+	@RequestMapping(value = "/editkysymys/{id}", method = RequestMethod.GET)
+	public String editKysymys(@PathVariable("kysymys_id") Long kysymysId, Model model) {
+		model.addAttribute("kysymys", kysymysRepo.findById(kysymysId));
+		model.addAttribute("kysymystyyppi", kysymysRepo.findAll());
+		return "editkysymys";
+	}
+	
+	@RequestMapping(value = "/kysymyslist", method = RequestMethod.GET)
+	public String getKysymykset(Model model) {
+			List<Kysymys> kysymykset =  (List<Kysymys>) kysymysRepo.findAll();
+			model.addAttribute("kysymykset", kysymykset); 
+			return "kysymyslist"; 
+								
+	}
 
 }
