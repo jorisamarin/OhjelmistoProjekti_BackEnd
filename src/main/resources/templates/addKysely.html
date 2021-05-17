@@ -1,0 +1,23 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"> 
+<head>
+	<title>Luo uusi kysely</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+</head>
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	<body>
+	
+		<h1>UUSI KYSELY</h1>
+		
+		
+		
+		<div>
+ 			<form th:object="${kysely}" th:action="@{save}" action="#" method="post">
+ 			 <label for="nimi">Nimi</label>
+ 			 <input type="text" id="nimi" th:field="*{nimi}" />
+ 			 <input type="submit" value="Save"></input>
+ 			</form>
+		</div>
+	</body>
+</html>

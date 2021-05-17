@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +21,8 @@ import fi.hh.ohjelmistoprojekti.backend2.domain.Kysely;
 import fi.hh.ohjelmistoprojekti.backend2.domain.KyselyRepository;
 import fi.hh.ohjelmistoprojekti.backend2.domain.Kysymys;
 import fi.hh.ohjelmistoprojekti.backend2.domain.KysymysRepository;
+import fi.hh.ohjelmistoprojekti.backend2.domain.User;
+import fi.hh.ohjelmistoprojekti.backend2.domain.UserRepository;
 import fi.hh.ohjelmistoprojekti.backend2.domain.Vastaus;
 import fi.hh.ohjelmistoprojekti.backend2.domain.VastausRepository;
 
@@ -44,6 +48,9 @@ public class KyselyController {
 	
 	@Autowired
 	VastausRepository vastausRepo;
+	
+	@Autowired
+	UserRepository userRepo;
 	
 	
 	@RequestMapping(value="/kysely", method = RequestMethod.GET)
@@ -72,6 +79,38 @@ public class KyselyController {
 		}
   
     }
+	
+	//Samulin tekemät controllerit
+	@RequestMapping("/userKyselyt")
+	public String userKyselyt(Model model) {
+		UserDetails user = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username = user.getUsername();
+		User usernow = userRepo.findByUsername(username);
+		model.addAttribute("kysely", kysRepository.findByUser(usernow));
+		return "userKyselyt";
+	}
+	
+	@RequestMapping(value = "/addKysely")
+	public String addKysely(Model model){
+		model.addAttribute("kysely", new Kysely());
+		return "addKysely";
+	}
+	
+	@RequestMapping("/kyselyKysymykset/{nimi}")
+	public String kyselyKysymykset(@PathVariable("nimi") String nimi, Model model){
+		Kysely kysely = kysRepository.findByNimi(nimi);
+		model.addAttribute("kysymys", kysymysRepo.findByKysely(kysely));
+		return "kyselyKysymykset";
+	}
+	
+	@RequestMapping(value = "/addKysymys")
+	public String addKysymys(Model model){
+		model.addAttribute("kysymys", new Kysymys());
+		return "addKysymys";
+	}
+	
+	
+	
 	
 	@RequestMapping(value="/kysymys/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Kysymys> findKysymysRest(@PathVariable("id") Long kysymysId) {	

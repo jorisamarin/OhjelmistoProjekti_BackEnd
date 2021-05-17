@@ -1,0 +1,34 @@
+<! DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"> 
+<head>
+	<title>Minun Kyselyt</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+</head>
+	<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	<body>
+	
+		<h1>Kyselyt</h1>
+		
+		
+		<table class="table table-striped">
+		
+			<tr>
+				<th>User</th>
+				<th>Nimi</th>
+			</tr>
+			
+			<tr th:each = "kysely : ${kysely}">
+				<td th:text="${kysely.user.username}"></td>
+				<td th:text="${kysely.nimi}"></td>
+			</tr>
+		</table>
+		<a href="/addKysely" class="btn btn-primary">Luo uusi kysely</a>
+		
+		
+		
+			
+		
+	
+	</body>
+</html>
