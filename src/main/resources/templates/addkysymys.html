@@ -9,13 +9,11 @@
 	<body>
 	
 		<h1>UUSI KYSYMYS</h1>
-		
-		
-		
 		<div>
  			<form th:object="${kysymys}" th:action="@{saveKysymys}" action="#" method="post">
  			 <label for="kysymysteksti">Kysymysteksti</label>
  			 <input type="text" id="kysymysteksti" th:field="*{kysymysteksti}" />
+ 			 <div style="clear: both; display: block; height: 10px;"></div>
  			 <label for="deplist">Kysely</label>
  			 <select id="deplist" th:field="*{kysely}" class="form-control">
  			 <option th:each="kysely: ${kyselyt}" th:value="${kysely.kyselyId}" th:text="${kysely.nimi}"></option>

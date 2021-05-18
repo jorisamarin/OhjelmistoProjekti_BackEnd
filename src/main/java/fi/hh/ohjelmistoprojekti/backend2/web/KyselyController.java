@@ -30,6 +30,7 @@ import fi.hh.ohjelmistoprojekti.backend2.domain.VastausRepository;
 
 
 
+
 @CrossOrigin
 @Controller
 public class KyselyController {
@@ -56,13 +57,13 @@ public class KyselyController {
 	//Samulin tekemät controllerit
 	
 	//TODO
-	//POST metodi vastauskselle tekemättä
+	//POST metodi vastauskselle tekemättä -done
 	//THYMELEAF METODIT EI TOIMI TÄYSIN
 	//addKysymys ja savekysymys tarvis tiedot siitä kyselystä mihin kysymys tulee ja lisätä se kysymykseen (jotenkin endpointtien kautta ehkä?)
 	//ADMINILLE VAIN OIKEUDET 
 	
 	//AAMUN KOMMENTIT VIELÄ!!
-	//THYMELEAF addkysymys ja savekysymys toimii mutta haluttu kysely pitää valita deplististä
+	//THYMELEAF addkysymys ja savekysymys toimii mutta haluttu kysely pitää valita deplististä -done
 	//Osassa thymeleaf sivuja ei toimi CSS
 	
 	
@@ -93,6 +94,38 @@ public class KyselyController {
 		}
   
     }
+	
+	//JONIN LISÄÄMÄT
+	
+	@RequestMapping(value="/vastaus", method = RequestMethod.GET)
+    public @ResponseBody List<Vastaus> VastausListRest() {	
+        return (List<Vastaus>) vastausRepo.findAll();
+    }  
+	
+	@PostMapping(path ="/vastaus", consumes = "application/json", produces = "application/json")
+    public Vastaus saveVastausRest(@RequestBody Vastaus vastaus) {	
+		try {
+			return vastausRepo.save(vastaus);
+		} catch (Exception e) {
+			System.out.println("virhe");
+			return null;
+		}
+  
+    }
+	@RequestMapping(value = "/kyselylist", method = RequestMethod.GET)
+	public String getIlmoitukset(Model model) {
+			List<Kysely> kyselyt =  (List<Kysely>) kysRepository.findAll();
+			model.addAttribute("kyselyt", kyselyt); 
+			return "ilmoituslist"; 
+								
+	}
+	
+	@RequestMapping(value = "/addkysymys", method = RequestMethod.GET)
+	public String getUusiKysymys(Model model) {
+		model.addAttribute("kysymys", new Kysymys());
+		model.addAttribute("kysely", kysRepository.findAll());
+		return "addkysymys";
+	}
 	
 	//ADMIN THYMELEAF JUTTUJA
 	
@@ -154,10 +187,10 @@ public class KyselyController {
     	return kysymysRepo.findById(kysymysId);
     } 
 	
-	@PostMapping(path = "/kysymys", consumes = "application/json", produces = "application/json")
-	public Vastaus saveVastausRest(@RequestBody Vastaus vastaus) {
-		return vastausRepo.save(vastaus);
-	}
+	//@PostMapping(path = "/kysymys", consumes = "application/json", produces = "application/json")
+	//public Vastaus saveVastausRest(@RequestBody Vastaus vastaus) {
+		//return vastausRepo.save(vastaus);
+	//}
 	
 	@RequestMapping(value = "/addkysymys", method = RequestMethod.POST)
 	public String saveKysymys(@ModelAttribute Kysymys kysymys) {
@@ -165,12 +198,6 @@ public class KyselyController {
 		return "redirect:/index";
 	}
 	
-	@RequestMapping(value = "/addkysymys", method = RequestMethod.GET)
-	public String getUusiKysymys(Model model) {
-		model.addAttribute("kysymys", new Kysymys());
-		model.addAttribute("kysymystyyppi", kysymysRepo.findAll());
-		return "addkysymys";
-	}
 	
 	@RequestMapping(value = "/deletekysymys/{id}", method = RequestMethod.GET)
 	public String deleteKysymys(@PathVariable("kysymys_id") Long kysymysId) {

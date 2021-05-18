@@ -32,6 +32,10 @@ public class Vastaus {
 		this.vastaus = vastaus;
 		this.kysymys = kysymys;
 	}
+	
+	public Vastaus() {
+		super();
+	}
 
 	
 	public Long getVastaus_id() {
