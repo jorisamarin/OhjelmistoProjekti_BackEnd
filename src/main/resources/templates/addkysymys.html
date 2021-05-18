@@ -16,6 +16,10 @@
  			<form th:object="${kysymys}" th:action="@{saveKysymys}" action="#" method="post">
  			 <label for="kysymysteksti">Kysymysteksti</label>
  			 <input type="text" id="kysymysteksti" th:field="*{kysymysteksti}" />
+ 			 <label for="deplist">Kysely</label>
+ 			 <select id="deplist" th:field="*{kysely}" class="form-control">
+ 			 <option th:each="kysely: ${kyselyt}" th:value="${kysely.kyselyId}" th:text="${kysely.nimi}"></option>
+ 			 </select>
  			 <input type="submit" value="Save"></input>
  			</form>
 		</div>

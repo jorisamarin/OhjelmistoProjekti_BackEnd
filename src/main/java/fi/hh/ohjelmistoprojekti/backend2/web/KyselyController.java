@@ -61,6 +61,10 @@ public class KyselyController {
 	//addKysymys ja savekysymys tarvis tiedot siitä kyselystä mihin kysymys tulee ja lisätä se kysymykseen (jotenkin endpointtien kautta ehkä?)
 	//ADMINILLE VAIN OIKEUDET 
 	
+	//AAMUN KOMMENTIT VIELÄ!!
+	//THYMELEAF addkysymys ja savekysymys toimii mutta haluttu kysely pitää valita deplististä
+	//Osassa thymeleaf sivuja ei toimi CSS
+	
 	
 	
 	@RequestMapping(value="/kysely", method = RequestMethod.GET)
@@ -126,16 +130,15 @@ public class KyselyController {
 	
 	@RequestMapping(value = "/addKysymys")
 	public String addKysymys(Model model){
-		
 		model.addAttribute("kysymys", new Kysymys());
-		
+		model.addAttribute("kyselyt", kysRepository.findAll());
 		return "addKysymys";
 	}
 	
 	@RequestMapping(value = "/saveKysymys", method = RequestMethod.POST)
 	public String saveKysymys2(Kysymys kysymys){
 		kysymysRepo.save(kysymys);
-		return "redirect:kyselyKysymykset";
+		return "redirect:userKyselyt";
 	}
 	
 	//Muut controllerit
