@@ -97,12 +97,12 @@ public class KyselyController {
 	
 	//JONIN LISÄÄMÄT
 	
-	@RequestMapping(value="/vastaus", method = RequestMethod.GET)
+	@RequestMapping(value="/kysymykset/{nimi}/vastaus", method = RequestMethod.GET)
     public @ResponseBody List<Vastaus> VastausListRest() {	
         return (List<Vastaus>) vastausRepo.findAll();
     }  
 	
-	@PostMapping(path ="/vastaus", consumes = "application/json", produces = "application/json")
+	@PostMapping(path ="/kysymykset/{nimi}/vastaus", consumes = "application/json", produces = "application/json")
     public Vastaus saveVastausRest(@RequestBody Vastaus vastaus) {	
 		try {
 			return vastausRepo.save(vastaus);
